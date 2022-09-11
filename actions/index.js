@@ -14,6 +14,30 @@ class Actions {
 	  });
 	}
 
+	dlVideo(ctx) {
+		const url = ctx.match[1];
+	  ctx.replyWithVideo({
+	    source: ytdl(url),
+	  });
+	}
+
+	downloadAudio(ctx) {
+		const url = ctx.match[1];
+		console.log(url);
+		const videoId = ytdl.getURLVideoID(url);
+	  ctx.replyWithVoice({
+	    url: `https://musiky-listen.herokuapp.com/${videoId}?source=yt&format=mp3`,
+	    filename: `${videoId}.mp3`
+	  });
+	}
+
+	dlAudio(ctx) {
+		const url = ctx.match[1];
+		ctx.replyWithVoice({
+			source: ytdl(url, { filter: "audioonly" })
+		})
+	}
+
 	text(ctx) {
 		// console.log(ctx.update.message.text); // user message
 		ctx.reply('Hello World')
